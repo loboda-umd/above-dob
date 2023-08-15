@@ -1,8 +1,37 @@
 # ABoVE Date of Born (DoB) DAAC Dataset
 
-![ABoVE DoB](https://daac.ornl.gov/ABOVE/guides/Wildfires_Date_of_Burning.html)
+[DAAC ABoVE DoB](https://daac.ornl.gov/ABOVE/guides/Wildfires_Date_of_Burning.html)
 
-## Dependencies
+## Data Download
+
+1. Fire Perimeters: download the fire perimeters from the Alaska Large Fire Database (ALFD) and the
+National Burned Area Composite (NBAC). The previous CNFDB used in DAAC v1.1 has not been updated since
+2020, and thus has been replaced for Canada in versions after v1.1.
+
+2. Active Fires: active fires are taken from FIRMS. A simple script to download the active fires as CSVs
+is listed below. To run the script, just specify the output path at the end of the command:
+
+```bash
+bash scripts/download_modis_afd.sh .
+```
+
+## Process DoB
+
+1. Join and Georeference Active Fires
+
+```bash
+python 1_preprocess_active_fires.py
+```
+
+2. Join Fire Perimeters
+
+```bash
+python 2_preprocess_fire_perimeters.py
+```
+
+## System Dependencies
+
+TBD
 
 ## References
 
