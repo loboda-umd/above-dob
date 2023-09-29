@@ -2,6 +2,14 @@
 
 [DAAC ABoVE DoB](https://daac.ornl.gov/ABOVE/guides/Wildfires_Date_of_Burning.html)
 
+## System Dependencies
+
+All dependencies are installed in the ilab-pytorch anaconda environment from Explore/ADAPT.
+
+```bash
+conda activate ilab-pytorch
+```
+
 ## Data Download
 
 1. Fire Perimeters: download the fire perimeters from the Alaska Large Fire Database (ALFD) and the
@@ -20,13 +28,25 @@ bash scripts/download_modis_afd.sh .
 1. Join and Georeference Active Fires
 
 ```bash
-python 1_preprocess_active_fires.py
+python dob_pipeline.py \
+    --active-fire-regex '/explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Active_Fires/MODIS_Active_Fire/*.csv' \
+    --alaska-fire-perimeter-filename '/explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Fire_Perimeters/ALFD_1940_2022/ALFD_1940_2022.shp' \
+    --canada-fire-perimeter-filename '/explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Fire_Perimeters/NBAC_1986_2022/nbac_1986_to_2022_20230630.shp' \
+    --aoi-filename '/explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Geometries/Alaska_Canada_Area/Canada_and_Alaska_Canada_Albers.gpkg' \
+    --start-year 2001 \
+    --end-year 2022 \
+    --output-dir /explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Development \
+    -s preprocess_af
+
+
+
+
+    python dob_pipeline.py --active-fire-regex /explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Active_Fires/MODIS_Active_Fire/*.csv --alaska-fire-perimeter-filename /explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Fire_Perimeters/ALFD_1940_2022/ALFD_1940_2022.shp --canada-fire-perimeter-filename /explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Fire_Perimeters/NBAC_1986_2022/nbac_1986_to_2022_20230630.shp --aoi-filename /explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Geometries/Alaska_Canada_Area/Canada_and_Alaska_Canada_Albers.gpkg --output-dir /explore/nobackup/projects/ilab/projects/LobodaTFO/data/ABoVE_DoB/DAAC_Update_2023/Development --start-year 2000 --end-year 2022 -s preprocess_af
 ```
 
 2. Join Fire Perimeters
 
 ```bash
-python 2_preprocess_fire_perimeters.py
 ```
 
 ## System Dependencies
